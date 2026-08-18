@@ -1,0 +1,29 @@
+BEGIN
+    DECLARE i INT DEFAULT 1;
+    WHILE i <= 200 DO
+        SET @pid = FLOOR(1 + (RAND() * 12));
+        CASE @pid
+            WHEN 1 THEN SET @pname='Laptop', @price=55000.00;
+            WHEN 2 THEN SET @pname='Smartphone', @price=30000.00;
+            WHEN 3 THEN SET @pname='Tablet', @price=20000.00;
+            WHEN 4 THEN SET @pname='Headphones', @price=2500.00;
+            WHEN 5 THEN SET @pname='Smartwatch', @price=12000.00;
+            WHEN 6 THEN SET @pname='Keyboard', @price=1500.00;
+            WHEN 7 THEN SET @pname='Mouse', @price=800.00;
+            WHEN 8 THEN SET @pname='Monitor', @price=15000.00;
+            WHEN 9 THEN SET @pname='Printer', @price=10000.00;
+            WHEN 10 THEN SET @pname='Router', @price=3500.00;
+            WHEN 11 THEN SET @pname='External HDD', @price=6000.00;
+            WHEN 12 THEN SET @pname='USB Flash Drive', @price=1000.00;
+        END CASE;
+
+        SET @qty = FLOOR(1 + (RAND() * 5));
+        SET @amt = @qty * @price;
+        SET @odate = DATE_ADD('2026-01-01', INTERVAL FLOOR(RAND()*200) DAY);
+
+        INSERT INTO online_sales_2026 (order_date, amount, product_id, product_name, quantity, price)
+        VALUES (@odate, @amt, @pid, @pname, @qty, @price);
+
+        SET i = i + 1;
+    END WHILE;
+END
